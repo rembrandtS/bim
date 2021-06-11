@@ -1,4 +1,4 @@
-package com.eucast.bim;
+package com.devo.bim;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

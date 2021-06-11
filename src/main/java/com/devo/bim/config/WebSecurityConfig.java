@@ -1,4 +1,4 @@
-package com.eucast.bim.config;
+package com.devo.bim.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -14,8 +14,6 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -41,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/","/index", "/account/login", "/dist/**", "/plugins/**", "/editor/**")
+            .antMatchers("/","/index", "/account/login", "/layout", "/dist/**", "/plugins/**", "/editor/**")
             .permitAll()
             .anyRequest()
             .authenticated()
@@ -87,26 +85,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder())
-//                .usersByUsernameQuery("select user_id, password, CASE WHEN enabled = 1 THEN true ELSE false END "
-//                        + "from account "
-//                        + "where user_id = ?")
-//                .authoritiesByUsernameQuery("select a.user_id, c.role_code "
-//                        + "from account a inner join account_role b on b.account_id=a.id  "
-//                        + "inner join role c on b.role_id = c.id "
-//                        + "where a.user_id = ?")
-//                .groupAuthoritiesByUsername(
-//                        "select c.id, c.inst_name, c.inst_type "
-//                        + "from account a inner join account_institute b on b.account_id=a.id "
-//                        + "inner join institute c on b.inst_id = c.id "
-//                        + "where a.user_id = ?"
-//                );
-//    }
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception {
+
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery("select email as user_id, password, CASE WHEN enabled = 1 THEN true ELSE false END "
+                        + "from account "
+                        + "where email = ?")
+                .authoritiesByUsernameQuery("select a.email as user_id, c.code "
+                        + "from account a inner join account_role b on b.account_id=a.id  "
+                        + "inner join role c on b.role_id = c.id "
+                        + "where a.email = ?")
+                .groupAuthoritiesByUsername(
+                        "select b.id, b.name, b.type "
+                        + "from account a"
+                        + "inner join company b on b.id = a.company_id "
+                        + "where a.email = ?"
+                );
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
