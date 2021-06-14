@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/","/index", "/account/login", "/layout", "/dist/**", "/plugins/**", "/editor/**")
+            .antMatchers("/","/index", "/account/resetPassword", "/account/login", "/layout", "/dist/**", "/plugins/**", "/editor/**")
             .permitAll()
             .anyRequest()
             .authenticated()
@@ -97,10 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select a.email as user_id, c.code "
                         + "from account a inner join account_role b on b.account_id=a.id  "
                         + "inner join role c on b.role_id = c.id "
-                        + "where a.email = ?")
+                        + "where a.email = ? ")
                 .groupAuthoritiesByUsername(
                         "select b.id, b.name, b.type "
-                        + "from account a"
+                        + "from account a "
                         + "inner join company b on b.id = a.company_id "
                         + "where a.email = ?"
                 );
