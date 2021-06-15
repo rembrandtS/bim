@@ -23,6 +23,15 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg" th:text="#{account.login.message}">Sign in to start your session</p>
 
+      <div class="form-group">
+        <label for="langSel">언어선택</label>
+        <select class="custom-select rounded-0" id="langSel">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+          <option value="zh">汉语</option>
+        </select>
+      </div>
+
       <form th:action="@{/account/login}" method="post">
         <div class="input-group mb-3">
           <input type="email" name="username" class="form-control" th:placeholder="#{account.login.email}">
