@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
             .logout()
             .logoutUrl("/logout") /* 로그아웃 url*/
-            .logoutSuccessUrl("/account/login") /* 로그아웃 성공시 이동할 url */
+            .logoutSuccessUrl("/index") /* 로그아웃 성공시 이동할 url */
             .invalidateHttpSession(true) /*로그아웃시 세션 제거*/
             .deleteCookies("JSESSIONID") /*쿠키 제거*/
             .clearAuthentication(true) /*권한정보 제거*/
