@@ -39,18 +39,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/","/index", "/account/resetPassword", "/account/login", "/layout", "/dist/**", "/plugins/**", "/editor/**")
+            .antMatchers("/","/index", "/account/resetPassword", "/account/login", "/layout", "/dist/**", "/plugins/**")
             .permitAll()
             .anyRequest()
             .authenticated()
         .and()
             .formLogin()
             .loginPage("/account/login")
-            .permitAll()
+            .defaultSuccessUrl("/index")
         .and()
             .logout()
             .logoutUrl("/logout") /* 로그아웃 url*/
-            .logoutSuccessUrl("/index") /* 로그아웃 성공시 이동할 url */
+            .logoutSuccessUrl("/account/login") /* 로그아웃 성공시 이동할 url */
             .invalidateHttpSession(true) /*로그아웃시 세션 제거*/
             .deleteCookies("JSESSIONID") /*쿠키 제거*/
             .clearAuthentication(true) /*권한정보 제거*/
@@ -63,13 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable();
         http.headers().frameOptions().disable();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/api/checkIdDuplicate");
-//        web.ignoring().antMatchers("/api/checkBizNoDuplicate");
-//        web.ignoring().antMatchers("/api/checkEmailDuplicate");
     }
 
     @Bean
