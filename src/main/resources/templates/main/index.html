@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout/fragment :: head('BIM | 현황판')"></head>
+<head th:replace="layout/common :: head('BIM | 현황판')"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-  <div th:replace="layout/fragment :: preLoader()"></div>
-  <nav th:replace="layout/fragment :: navigation('main')"></nav>
-  <aside th:replace="layout/fragment :: aside('main','work')"></aside>
+  <div th:replace="layout/common :: preLoader()"></div>
+  <nav th:replace="layout/common :: navigation('main')"></nav>
+  <aside th:replace="layout/common :: aside('main','work')"></aside>
 
   <!-- contents area  -->
   <div class="content-wrapper">
@@ -611,9 +611,9 @@
     </section>
     <!-- /.content -->
   </div>
-  <footer th:replace="layout/fragment :: footer()"></footer>
+  <footer th:replace="layout/common :: footer()"></footer>
 </div>
-<div th:include="layout/fragment :: script()"></div>
+<div th:include="layout/common :: script()"></div>
 <script>
 $(document).ready(function() {
 
