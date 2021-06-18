@@ -25,7 +25,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/","/index", "/account/resetPassword", "/account/login", "/layout", "/dist/**", "/plugins/**", "/sample/**")
+            .antMatchers("/","/account/resetPassword", "/account/login", "/layout", "/dist/**", "/plugins/**", "/sample/**")
             .permitAll()
             .anyRequest()
             .authenticated()
